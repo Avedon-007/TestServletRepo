@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="JavaCalendar" target="6" />
+      <module name="JavaCalendar" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
