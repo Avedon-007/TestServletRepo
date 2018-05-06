@@ -6,13 +6,15 @@
     <title>Java Event Calendar</title>
 </head>
 <body>
-    <div style="text-align: center;"/>
+    <div style="text-align: center;">
         <h1>Java Events Management</h1>
         <h2>
             <a href="/new">Add New Event</a>
             &nbsp;&nbsp;&nbsp;
             <a href="/list">List All Events</a>
         </h2>
+    </div>
+
     <div align="center">
         <table border="1" cellpadding="5">
             <caption><h2>List of Events</h2></caption>

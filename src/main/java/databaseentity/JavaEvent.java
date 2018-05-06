@@ -18,6 +18,12 @@ public class JavaEvent implements Serializable {
         this.id = id;
     }
 
+    public JavaEvent(String title, String description, Date dateOfEvent) {
+        this.title = title;
+        this.description = description;
+        this.dateOfEvent = dateOfEvent;
+    }
+
     public JavaEvent(int id, String title, String description, Date dateOfEvent) {
         this.id = id;
         this.title = title;

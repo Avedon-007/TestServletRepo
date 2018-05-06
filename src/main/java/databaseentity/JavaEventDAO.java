@@ -9,6 +9,7 @@ public class JavaEventDAO {
     private String jdbcUsername;
     private String jdbcPass;
     private Connection jdbcConnection;
+    private JavaEvent javaEvent;
 
     public JavaEventDAO(String jdbcURL, String jdbcUsername, String jdbcPass){
         this.jdbcURL = jdbcURL;
@@ -49,7 +50,7 @@ public class JavaEventDAO {
     }
 
     public List<JavaEvent> listAllJavaEvents()throws SQLException{
-        List<JavaEvent> javaEventList = new ArrayList<JavaEvent>();
+        List<JavaEvent> javaEventList = new ArrayList<>();
         String sql = "SELECT * FROM java_event";
         connect();
         Statement statement = jdbcConnection.createStatement();
@@ -99,7 +100,6 @@ public class JavaEventDAO {
     }
 
     public JavaEvent getJavaEvent(int id) throws SQLException{
-        JavaEvent javaEvent = null;
         String sql = "SELECT * FROM java_event WHERE id = ?";
 
         connect();
