@@ -86,8 +86,8 @@ public class ControllerServlet  extends HttpServlet {
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException,
             ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
-
-        JavaEvent existingEvent = JavaEventDAO.getJavaEvent(id);
+        JavaEventDAO javaEventDAO = new JavaEventDAO();
+        JavaEvent existingEvent = javaEventDAO.getJavaEvent(id);
         RequestDispatcher dispatcher = req.getRequestDispatcher("EventForm.jsp");
         req.setAttribute("javaEvent", existingEvent);
         dispatcher.forward(req, resp);

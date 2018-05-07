@@ -11,6 +11,8 @@ public class JavaEventDAO {
     private Connection jdbcConnection;
     private JavaEvent javaEvent;
 
+    public JavaEventDAO(){}
+
     public JavaEventDAO(String jdbcURL, String jdbcUsername, String jdbcPass){
         this.jdbcURL = jdbcURL;
         this.jdbcUsername = jdbcUsername;
