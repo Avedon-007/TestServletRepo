@@ -27,6 +27,6 @@
 
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/list</url-pattern>
     </servlet-mapping>
 </web-app>

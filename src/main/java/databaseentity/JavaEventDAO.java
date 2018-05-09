@@ -1,8 +1,8 @@
 package databaseentity;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class JavaEventDAO {
     private String jdbcURL;
@@ -52,7 +52,7 @@ public class JavaEventDAO {
     }
 
     public List<JavaEvent> listAllJavaEvents()throws SQLException{
-        List<JavaEvent> javaEventList = new ArrayList<>();
+        List<JavaEvent> javaEventList = new CopyOnWriteArrayList<>();
         String sql = "SELECT * FROM java_event";
         connect();
         Statement statement = jdbcConnection.createStatement();
