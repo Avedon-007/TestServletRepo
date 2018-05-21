@@ -61,7 +61,7 @@ public class ControllerServlet  extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/EventForm.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("EventForm.jsp");
         dispatcher.forward(req, resp);
     }
 
