@@ -25,7 +25,7 @@
                 <th>Date of Event</th>
                 <th>Actions</th>
             </tr>
-            <myTag:forEach var="javaEvent" items="${javaEventList}">
+            <myTag:forEach var="javaEvent" items="${eventList}">
                 <tr>
                     <td><myTag:out value="${javaEvent.id}"/></td>
                     <td><myTag:out value="${javaEvent.title}"/></td>

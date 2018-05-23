@@ -9,7 +9,7 @@ public class JavaEventDAO {
     private String jdbcUsername;
     private String jdbcPass;
     private Connection jdbcConnection;
-    private JavaEvent javaEvent;
+//    private JavaEvent javaEvent;
 
     public JavaEventDAO(){}
 
@@ -22,7 +22,7 @@ public class JavaEventDAO {
     public void connect() throws SQLException{
         if(jdbcConnection == null || jdbcConnection.isClosed()){
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 throw new   SQLException(e);
             }
@@ -53,7 +53,7 @@ public class JavaEventDAO {
 
     public List<JavaEvent> listAllJavaEvents()throws SQLException{
         List<JavaEvent> javaEventList = new CopyOnWriteArrayList<>();
-        String sql = "SELECT * FROM java_event";
+        String sql = "SELECT * FROM java_event;";
         connect();
         Statement statement = jdbcConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -62,7 +62,7 @@ public class JavaEventDAO {
             String title = resultSet.getString("title");
             String description = resultSet.getString("description");
             Date dataOfEvent = resultSet.getDate("data_of_event");
-
+            System.out.println("***************" + id);
             JavaEvent javaEvent = new JavaEvent(id, title, description, dataOfEvent);
             javaEventList.add(javaEvent);
         }
@@ -102,6 +102,7 @@ public class JavaEventDAO {
     }
 
     public JavaEvent getJavaEvent(int id) throws SQLException{
+        JavaEvent javaEvent = null;
         String sql = "SELECT * FROM java_event WHERE id = ?";
 
         connect();

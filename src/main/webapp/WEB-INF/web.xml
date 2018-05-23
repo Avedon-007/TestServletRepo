@@ -7,7 +7,7 @@
 
     <context-param>
         <param-name>jdbcURL</param-name>
-        <param-value>jdbc:mysql://localhost:3306/java_calendar_db</param-value>
+        <param-value>jdbc:mysql://localhost:3306/java_calendar_db?useSSL=true</param-value>
     </context-param>
 
     <context-param>

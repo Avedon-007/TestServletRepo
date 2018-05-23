@@ -20,9 +20,11 @@ public class ControllerServlet  extends HttpServlet {
     private JavaEventDAO javaEventDAO;
 
     public void init(){
+        // get all params from web.xml
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
         String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+
         javaEventDAO = new JavaEventDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
@@ -106,8 +108,9 @@ public class ControllerServlet  extends HttpServlet {
 
     private void listEvents(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException,
             IOException {
+        System.out.println("**************************** Controller SERVLET *************************");
         List<JavaEvent> eventList = javaEventDAO.listAllJavaEvents();
-        req.setAttribute("javaEvent", eventList);
+        req.setAttribute("eventList", eventList);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/JavaEventsList.jsp");
         dispatcher.forward(req, resp);
     }

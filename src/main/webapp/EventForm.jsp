@@ -16,10 +16,10 @@
     </div>
     <div align="center">
         <myTag:if test="${javaEvent != null}">
-            <form action="update" method="post"></form>
+            <form action="update" method="post">
         </myTag:if>
         <myTag:if test="${javaEvent == null}">
-            <form action="insert" method="post"></form>
+            <form action="insert" method="post">
         </myTag:if>
         <table border="1" cellpadding="5">
             <caption>
@@ -50,7 +50,7 @@
             <tr>
                 <th>Date of Event:</th>
                 <td>
-                    <input type="text" name="dateOfEvent" size="45" value="<form value='${javaEvent.dateOfEvent}'>"/>
+                    <input type="text" name="dateOfEvent" placeholder="2000-12-31" size="45" value="<myTag:out value='${javaEvent.dateOfEvent}'/>"/>
                 </td>
             </tr>
             <tr>
@@ -59,7 +59,7 @@
                 </td>
             </tr>
         </table>
-
+        </form>
     </div>
 
 </body>
