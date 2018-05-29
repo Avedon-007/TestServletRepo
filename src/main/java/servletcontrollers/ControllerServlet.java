@@ -88,9 +88,10 @@ public class ControllerServlet  extends HttpServlet {
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException,
             ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
-        JavaEventDAO javaEventDAO = new JavaEventDAO();
+        System.out.println(id + "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        javaEventDAO = new JavaEventDAO();
         JavaEvent existingEvent = javaEventDAO.getJavaEvent(id);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/EventForm.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("EventForm.jsp");
         req.setAttribute("javaEvent", existingEvent);
         dispatcher.forward(req, resp);
     }
@@ -111,7 +112,7 @@ public class ControllerServlet  extends HttpServlet {
         System.out.println("**************************** Controller SERVLET *************************");
         List<JavaEvent> eventList = javaEventDAO.listAllJavaEvents();
         req.setAttribute("eventList", eventList);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/JavaEventsList.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("JavaEventsList.jsp");
         dispatcher.forward(req, resp);
     }
 

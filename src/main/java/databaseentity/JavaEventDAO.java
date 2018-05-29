@@ -8,7 +8,7 @@ public class JavaEventDAO {
     private String jdbcURL;
     private String jdbcUsername;
     private String jdbcPass;
-    private Connection jdbcConnection;
+    private Connection jdbcConnection = null;
 //    private JavaEvent javaEvent;
 
     public JavaEventDAO(){}
@@ -38,12 +38,12 @@ public class JavaEventDAO {
 
     public boolean insertJavaEvent(JavaEvent javaEvent) throws SQLException {
         String sql = "INSERT INTO java_event (id, title, description, data_of_event)" +
-                " VALUES (?, ?, ?, ?)";
+                " VALUES (null , ?, ?, ?)";
         connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setString(2, javaEvent.getTitle());
-        statement.setString(3, javaEvent.getDescription());
-        statement.setDate(4, javaEvent.getDateOfEvent());
+        statement.setString(1, javaEvent.getTitle());
+        statement.setString(2, javaEvent.getDescription());
+        statement.setDate(3, javaEvent.getDateOfEvent());
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
@@ -88,7 +88,6 @@ public class JavaEventDAO {
         String sql = "UPDATE java_event SET title = ?, description = ?, data_of_event = ?" +
                 " WHERE id = ?";
         connect();
-
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, javaEvent.getTitle());
         statement.setString(2, javaEvent.getDescription());
@@ -102,10 +101,14 @@ public class JavaEventDAO {
     }
 
     public JavaEvent getJavaEvent(int id) throws SQLException{
+
         JavaEvent javaEvent = null;
-        String sql = "SELECT * FROM java_event WHERE id = ?";
+
+        String sql = "SELECT * FROM java_event WHERE id = ?;";
+
 
         connect();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -114,6 +117,7 @@ public class JavaEventDAO {
             String description = resultSet.getString("description");
             Date dateOfEvent = resultSet.getDate("data_of_event");
 
+            System.out.println(id +" " + title + " " + description + " " + dateOfEvent);
             javaEvent = new JavaEvent(id, title, description, dateOfEvent);
         }
         resultSet.close();
