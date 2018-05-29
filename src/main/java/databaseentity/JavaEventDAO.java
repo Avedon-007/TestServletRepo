@@ -8,8 +8,8 @@ public class JavaEventDAO {
     private String jdbcURL;
     private String jdbcUsername;
     private String jdbcPass;
-    private Connection jdbcConnection = null;
-//    private JavaEvent javaEvent;
+    private Connection jdbcConnection;
+    private JavaEvent javaEvent = null;
 
     public JavaEventDAO(){}
 
@@ -57,15 +57,16 @@ public class JavaEventDAO {
         connect();
         Statement statement = jdbcConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
+
         while (resultSet.next()){
             int id = resultSet.getInt("id");
             String title = resultSet.getString("title");
             String description = resultSet.getString("description");
             Date dataOfEvent = resultSet.getDate("data_of_event");
-            System.out.println("***************" + id);
-            JavaEvent javaEvent = new JavaEvent(id, title, description, dataOfEvent);
+            javaEvent = new JavaEvent(id, title, description, dataOfEvent);
             javaEventList.add(javaEvent);
         }
+
         resultSet.close();
         statement.close();
         disconnect();
@@ -101,25 +102,19 @@ public class JavaEventDAO {
     }
 
     public JavaEvent getJavaEvent(int id) throws SQLException{
-
-        JavaEvent javaEvent = null;
-
         String sql = "SELECT * FROM java_event WHERE id = ?;";
-
-
         connect();
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
+
         if(resultSet.next()){
             String title = resultSet.getString("title");
             String description = resultSet.getString("description");
             Date dateOfEvent = resultSet.getDate("data_of_event");
-
-            System.out.println(id +" " + title + " " + description + " " + dateOfEvent);
             javaEvent = new JavaEvent(id, title, description, dateOfEvent);
         }
+
         resultSet.close();
         statement.close();
         disconnect();

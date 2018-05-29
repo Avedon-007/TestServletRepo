@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ import java.util.List;
 public class ControllerServlet  extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private JavaEventDAO javaEventDAO;
+    private Date dateOfEvent;
 
     public void init(){
         // get all params from web.xml
@@ -70,7 +72,14 @@ public class ControllerServlet  extends HttpServlet {
     private void insertEvent(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         String title = req.getParameter("title");
         String description = req.getParameter("description");
-        Date dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent"));
+
+        // todo
+        if(req.getParameter("dateOfEvent").equals("")){
+            dateOfEvent = Date.valueOf(LocalDate.now());
+        }else{
+            dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent"));
+        }
+
 
         JavaEvent newJavaEvent = new JavaEvent(title, description, dateOfEvent);
         javaEventDAO.insertJavaEvent(newJavaEvent);
@@ -79,7 +88,6 @@ public class ControllerServlet  extends HttpServlet {
 
     private void deleteEvent(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-
         JavaEvent event = new JavaEvent(id);
         javaEventDAO.deleteJavaEvent(event);
         resp.sendRedirect("list");
@@ -88,8 +96,6 @@ public class ControllerServlet  extends HttpServlet {
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException,
             ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
-        System.out.println(id + "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        javaEventDAO = new JavaEventDAO();
         JavaEvent existingEvent = javaEventDAO.getJavaEvent(id);
         RequestDispatcher dispatcher = req.getRequestDispatcher("EventForm.jsp");
         req.setAttribute("javaEvent", existingEvent);
@@ -100,8 +106,7 @@ public class ControllerServlet  extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String title = req.getParameter("title");
         String description = req.getParameter("description");
-        Date dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent"));
-
+        dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent"));
         JavaEvent event = new JavaEvent(id, title, description, dateOfEvent);
         javaEventDAO.updateJavaEvent(event);
         resp.sendRedirect( "list");
@@ -109,7 +114,6 @@ public class ControllerServlet  extends HttpServlet {
 
     private void listEvents(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException,
             IOException {
-        System.out.println("**************************** Controller SERVLET *************************");
         List<JavaEvent> eventList = javaEventDAO.listAllJavaEvents();
         req.setAttribute("eventList", eventList);
         RequestDispatcher dispatcher = req.getRequestDispatcher("JavaEventsList.jsp");
