@@ -8,7 +8,7 @@
     <context-param>
         <param-name>jdbcURL</param-name>
         <param-value>jdbc:mysql://localhost:3306/java_calendar_db?useLegacyDatetimeCode=false&amp;serverTimezone=UTC
-            &amp;useSSL=false</param-value>
+            &amp;useSSL=false&amp;allowPublicKeyRetrieval=true</param-value>
     </context-param>
 
     <context-param>
