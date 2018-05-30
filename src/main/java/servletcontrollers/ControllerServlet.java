@@ -72,11 +72,15 @@ public class ControllerServlet  extends HttpServlet {
     private void insertEvent(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         String title = req.getParameter("title");
         String description = req.getParameter("description");
-
+        System.out.println(">>>>>" + req.getQueryString() + "<<<<<");
         // todo
-        if(req.getParameter("dateOfEvent").equals("")){
+        if(req.getParameter("dateOfEvent").equals("")) {
             dateOfEvent = Date.valueOf(LocalDate.now());
-        }else{
+        }
+//        else if(req.getQueryString() == null){
+//            dateOfEvent = Date.valueOf(LocalDate.now());
+//        }
+        else{
             dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent"));
         }
 
@@ -106,7 +110,7 @@ public class ControllerServlet  extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String title = req.getParameter("title");
         String description = req.getParameter("description");
-        dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent"));
+        dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent")); //todo
         JavaEvent event = new JavaEvent(id, title, description, dateOfEvent);
         javaEventDAO.updateJavaEvent(event);
         resp.sendRedirect( "list");
