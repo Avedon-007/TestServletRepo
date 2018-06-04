@@ -1,0 +1,24 @@
+DB: MySQL
+port: 3306
+user: 		root
+Root Pass: 	123456
+
+User: test
+pass: 1234
+
+Launch Mysql Server as Windows Service:
+
+
+
+
+CREATE DATABASE 'java_calendar_db';
+USE java_calendar_db;
+ 
+CREATE TABLE `java_event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `data_of_event` Date NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),  
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8

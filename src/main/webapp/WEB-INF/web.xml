@@ -21,6 +21,7 @@
         <param-value>123456</param-value>
     </context-param>
 
+<!-- We able to use @WebServlet instead of all this Mapping parameters-->
     <servlet>
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>servletcontrollers.ControllerServlet</servlet-class>
@@ -55,5 +56,9 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
+
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
 
 </web-app>

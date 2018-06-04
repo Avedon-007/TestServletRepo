@@ -4,6 +4,7 @@ import databaseentity.JavaEvent;
 import databaseentity.JavaEventDAO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,8 @@ import java.util.List;
 /**
  * This servlet acts as a page controller for the application, handling all requests from the user.
  */
+
+@WebServlet(urlPatterns = {"/list", "/new", "/insert", "/delete", "/update", "/edit"}) //todo write comment (instead Web.xml)
 public class ControllerServlet  extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private JavaEventDAO javaEventDAO;
