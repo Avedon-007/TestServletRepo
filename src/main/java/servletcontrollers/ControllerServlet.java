@@ -18,14 +18,14 @@ import java.util.List;
  * This servlet acts as a page controller for the application, handling all requests from the user.
  */
 
-@WebServlet(urlPatterns = {"/list", "/new", "/insert", "/delete", "/update", "/edit"}) //todo write comment (instead Web.xml)
+//@WebServlet(urlPatterns = {"/list", "/new", "/insert", "/delete", "/update", "/edit"}) //todo write comment (instead Web.xml)
 public class ControllerServlet  extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private JavaEventDAO javaEventDAO;
     private Date dateOfEvent;
 
     public void init(){
-        // get all params from web.xml
+        // get all context params from web.xml
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
         String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
@@ -75,19 +75,12 @@ public class ControllerServlet  extends HttpServlet {
     private void insertEvent(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         String title = req.getParameter("title");
         String description = req.getParameter("description");
-        System.out.println(">>>>>" + req.getQueryString() + "<<<<<");
-        // todo
         if(req.getParameter("dateOfEvent").equals("")) {
             dateOfEvent = Date.valueOf(LocalDate.now());
         }
-//        else if(req.getQueryString() == null){
-//            dateOfEvent = Date.valueOf(LocalDate.now());
-//        }
         else{
             dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent"));
         }
-
-
         JavaEvent newJavaEvent = new JavaEvent(title, description, dateOfEvent);
         javaEventDAO.insertJavaEvent(newJavaEvent);
         resp.sendRedirect("list");
@@ -113,7 +106,12 @@ public class ControllerServlet  extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String title = req.getParameter("title");
         String description = req.getParameter("description");
-        dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent")); //todo
+        if(req.getParameter("dateOfEvent").equals("")) {
+            dateOfEvent = Date.valueOf(LocalDate.now());
+        }
+        else{
+            dateOfEvent = Date.valueOf(req.getParameter("dateOfEvent"));
+        }
         JavaEvent event = new JavaEvent(id, title, description, dateOfEvent);
         javaEventDAO.updateJavaEvent(event);
         resp.sendRedirect( "list");
@@ -126,5 +124,4 @@ public class ControllerServlet  extends HttpServlet {
         RequestDispatcher dispatcher = req.getRequestDispatcher("JavaEventsList.jsp");
         dispatcher.forward(req, resp);
     }
-
 }
