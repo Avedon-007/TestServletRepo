@@ -16,10 +16,10 @@
     </div>
     <div align="center">
         <myTag:if test="${javaEvent != null}">
-            <form action="update" method="post">
+            <form action="update" method="post" onsubmit="validate()" name="update_form">
         </myTag:if>
         <myTag:if test="${javaEvent == null}">
-            <form action="insert" method="post">
+            <form action="insert" method="post" onsubmit="validate()" name="insert_form">
         </myTag:if>
         <table border="1" cellpadding="5">
             <caption>
@@ -39,6 +39,7 @@
                 <th>Title: </th>
                 <td>
                     <input type="text" name="title" size="45" value="<myTag:out value='${javaEvent.title}'/>"/>
+                    <div name="title_error" class="val_error"></div>
                 </td>
             </tr>
             <tr>
@@ -61,6 +62,25 @@
         </table>
         </form>
     </div>
+
+    <script>
+        function validate() {
+            var titleValidation = document.getElementsByName("title");
+            var dateOfEventValidation = document.getElementsByName("dateOfEvent");
+            var title_errorValidation = document.getElementsByName("title_error");
+
+            if(!titleValidation.value){
+                titleValidation.style.border = "1px solid red";
+                title_errorValidation.textContent = "Please enter a title of event."
+                titleValidation.focus();
+                return false;
+            }else if(titleValidation.value == ""){
+
+            }
+
+        }
+    
+    </script>
 
 </body>
 </html>
