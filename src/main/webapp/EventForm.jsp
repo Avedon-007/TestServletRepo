@@ -15,12 +15,15 @@
         </h2>
     </div>
     <div align="center">
+
+        <%--Decide wich form will be use--%>
         <myTag:if test="${javaEvent != null}">
-            <form action="update" method="post" onsubmit="validate()" name="update_form">
+            <form action="update" method="post" onsubmit="return validateOnUpdate()" name="update_form">
         </myTag:if>
         <myTag:if test="${javaEvent == null}">
-            <form action="insert" method="post" onsubmit="validate()" name="insert_form">
+            <form action="insert" method="post" onsubmit="return validateOnInsert()" name="insert_form">
         </myTag:if>
+
         <table border="1" cellpadding="5">
             <caption>
                 <h2>
@@ -64,22 +67,43 @@
     </div>
 
     <script>
-        function validate() {
-            var titleValidation = document.getElementsByName("title");
-            var dateOfEventValidation = document.getElementsByName("dateOfEvent");
-            var title_errorValidation = document.getElementsByName("title_error");
+        function validateOnUpdate() {
+            var titleValidation = document.forms["update_form"]["title"];
+            var descriptionValidation = document.forms["update_form"]["description"];
+            var titleValidationOnUpdate = document.forms["update_form"]["title"];
 
             if(!titleValidation.value){
-                titleValidation.style.border = "1px solid red";
-                title_errorValidation.textContent = "Please enter a title of event."
+                titleValidation.style.border = "2px solid red";
+                // title_errorValidation.textContent = "Please enter a title of event."
                 titleValidation.focus();
                 return false;
-            }else if(titleValidation.value == ""){
-
+            }else if(!descriptionValidation.value){
+                descriptionValidation.style.border = "2px solid red";
+                // title_errorValidation.textContent = "Please enter a title of event."
+                descriptionValidation.focus();
+                return false;
             }
-
         }
-    
+    </script>
+    <script>
+        function validateOnInsert() {
+            var titleValidation = document.forms["insert_form"]["title"];
+            var descriptionValidation = document.forms["insert_form"]["description"];
+            // var titleValidationOnUpdate = document.forms["insert_form"]["title"];
+
+            if(!titleValidation.value){
+                titleValidation.style.border = "2px solid red";
+                // title_errorValidation.textContent = "Please enter a title of event."
+                titleValidation.focus();
+                return false;
+            }else if(!descriptionValidation.value){
+                descriptionValidation.style.border = "2px solid red";
+                // title_errorValidation.textContent = "Please enter a title of event."
+                descriptionValidation.focus();
+                return false;
+            }
+        }
+
     </script>
 
 </body>
